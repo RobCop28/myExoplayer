@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">myExoplayer</string>
+    <string name="snackbar_text">No Internet Connection</string>
+    <string name="snackbar_action">Retry</string>
+</resources>
