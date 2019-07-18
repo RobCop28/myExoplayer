@@ -3,8 +3,10 @@ package com.example.android.myexoplayer2;
 
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,8 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
    public ProgressBar bar;
    public RequestManager requestManager;
    private View parent;
+   public ImageButton share;
+   public RelativeLayout layout;
 
 
     public ItemViewHolder(@NonNull View itemView){
@@ -25,6 +29,8 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
        frame=itemView.findViewById(R.id.VideoFrame);
        Image=itemView.findViewById(R.id.CoverImage);
        bar=itemView.findViewById(R.id.progressBar);
+       share=itemView.findViewById(R.id.shareButton);
+       layout=itemView.findViewById(R.id.progressLayout);
 
     }
 

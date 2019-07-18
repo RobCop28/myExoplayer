@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -188,6 +189,10 @@ public class ContentRecyclerView extends RecyclerView {
                }
             }
 
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+
+            }
         });
 
     }
