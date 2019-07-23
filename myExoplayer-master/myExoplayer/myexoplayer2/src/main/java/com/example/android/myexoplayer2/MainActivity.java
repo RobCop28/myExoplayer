@@ -129,18 +129,21 @@ public class MainActivity extends AppCompatActivity {
         content.setPhotoUrl(
                 "https://androidwave.com/media/images/exo-player-in-recyclerview-in-android-1.png");
         content.setVideoUrl("https://androidwave.com/media/androidwave-video-1.mp4");
+        content.setType(1);
 
         ContentStructure content2 = new ContentStructure();
         content2.setId(2);
         content2.setPhotoUrl(
                 "https://androidwave.com/media/images/exo-player-in-recyclerview-in-android-2.png");
         content2.setVideoUrl("https://androidwave.com/media/androidwave-video-2.mp4");
+        content2.setType(0);
 
         ContentStructure content3=new ContentStructure();
         content3.setId(3);
         content3.setPhotoUrl(
                 "https://androidwave.com/media/images/exo-player-in-recyclerview-in-android-2.png");
         content3.setVideoUrl("https://androidwave.com/media/androidwave-video-2.mp4");
+        content3.setType(1);
 
 
 

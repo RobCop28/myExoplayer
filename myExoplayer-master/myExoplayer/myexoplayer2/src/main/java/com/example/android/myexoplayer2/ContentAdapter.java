@@ -40,7 +40,7 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         context=viewGroup.getContext();
-        return new ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.content_item,viewGroup,false));
+        return new ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.content_item,viewGroup,false),i);
 
     }
 
@@ -54,8 +54,11 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 layout=((ItemViewHolder) viewHolder).layout;
                 layout.setVisibility(View.VISIBLE);
+                String url="";
+                if(videoItems.get(position).getType()==0)url=videoItems.get(position).getPhotoUrl();
+                if(videoItems.get(position).getType()==1)url=videoItems.get(position).getVideoUrl();
 
-                downloadResponse response=new downloadResponse(videoItems.get(position).getVideoUrl(),context,videoItems.get(position).getId());
+                downloadResponse response=new downloadResponse(url,context,videoItems.get(position).getId(),videoItems.get(position).getType());
                 response.initRequest(layout);
                // Uri fileUri=response.getFileUri();
 
@@ -63,6 +66,19 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         });
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        switch (videoItems.get(position).type) {
+            case 0:
+                return ContentStructure.ImageType;
+            case 1:
+                return ContentStructure.VideoType;
+
+            default:
+                return -1;}
+
+        }
 
     @Override
     public int getItemCount() {

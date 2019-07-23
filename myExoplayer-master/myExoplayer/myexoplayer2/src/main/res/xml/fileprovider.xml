@@ -3,4 +3,7 @@
      <external-files-path
          name="videos.mp4"
          path="Movies/"/>
+     <external-files-path
+         name="images.jpg"
+         path="Pictures/"/>
 </paths>

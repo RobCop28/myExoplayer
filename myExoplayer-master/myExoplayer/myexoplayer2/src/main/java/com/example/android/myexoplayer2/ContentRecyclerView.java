@@ -72,6 +72,7 @@ public class ContentRecyclerView extends RecyclerView {
     private int playPosition = -1;
     private boolean isVideoViewAdded;
     private RequestManager requestManager;
+    private int type;
 
     public ContentRecyclerView(@NonNull Context context){
         super(context);
@@ -84,6 +85,7 @@ public class ContentRecyclerView extends RecyclerView {
     }
 
     private void start(Context context){
+
         this.context=context.getApplicationContext();
         Display display=((WindowManager) Objects.requireNonNull(getContext().getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay();
         Point point=new Point();
@@ -268,6 +270,9 @@ public class ContentRecyclerView extends RecyclerView {
         requestManager = holder.requestManager;
         contentContainer = holder.frame;
 
+
+        if(holder.type==1){
+
         videoSurfaceView.setPlayer(player);
 
 
@@ -282,6 +287,9 @@ public class ContentRecyclerView extends RecyclerView {
             player.prepare(videoSource);
             player.setPlayWhenReady(true);
         }
+    }
+
+
     }
 
     private int getVisibleVideoSurfaceHeight(int playPosition) {

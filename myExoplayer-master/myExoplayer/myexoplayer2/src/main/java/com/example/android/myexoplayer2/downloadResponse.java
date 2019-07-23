@@ -39,9 +39,10 @@ public class downloadResponse implements Response.Listener<byte[]>, Response.Err
     private FileOutputStream stream;
     Uri fileUri;
     int id;
+    int type;
 
 
-    public downloadResponse(String url,Context context,int id){this.url=url; this.context=context; this.id=id;;
+    public downloadResponse(String url,Context context,int id,int type){this.url=url; this.context=context; this.id=id; this.type=type;
      }
 
     @Override
@@ -54,35 +55,71 @@ public class downloadResponse implements Response.Listener<byte[]>, Response.Err
 
                     //covert reponse to input stream
                     InputStream input = new ByteArrayInputStream(response);
-                    File myFile=new File(context.getExternalFilesDir(Environment.DIRECTORY_MOVIES),"videos.mp4");
 
-                    BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(myFile));
-                    byte[] data = new byte[1024];
+                    if(type==1) {
+                        File myFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_MOVIES), "videos.mp4");
 
-                    long total = 0;
 
-                    while ((count = input.read(data)) != -1) {
-                        total += count;
-                        output.write(data, 0, count);
+                        BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(myFile));
+                        byte[] data = new byte[1024];
+
+                        long total = 0;
+
+                        while ((count = input.read(data)) != -1) {
+                            total += count;
+                            output.write(data, 0, count);
+                        }
+
+                        // output.flush();
+
+                        output.close();
+                        input.close();
+                        layout.setVisibility(View.GONE);
+
+                        fileUri = FileProvider.getUriForFile(context, "com.example.android.myexoplayer2.fileprovider", myFile);
+
+                        Toast.makeText(context, "Downloaded" + fileUri, Toast.LENGTH_LONG).show();
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.setType("video/*");
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        context.startActivity(Intent.createChooser(shareIntent, "Share Video"));
                     }
 
-                   // output.flush();
+                    if(type==0){
+                        File myFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "images.jpg");
 
-                    output.close();
-                    input.close();
-                    layout.setVisibility(View.GONE);
 
-                    fileUri= FileProvider.getUriForFile(context,"com.example.android.myexoplayer2.fileprovider",myFile);
+                        BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(myFile));
+                        byte[] data = new byte[1024];
 
-                    Toast.makeText(context,"Downloaded"+fileUri,Toast.LENGTH_LONG).show();
-                    Intent shareIntent=new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.setType("video/*");
-                    shareIntent.putExtra(Intent.EXTRA_STREAM,fileUri);
+                        long total = 0;
 
-                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    context.startActivity(Intent.createChooser(shareIntent,"Share Video"));
+                        while ((count = input.read(data)) != -1) {
+                            total += count;
+                            output.write(data, 0, count);
+                        }
 
+                        // output.flush();
+
+                        output.close();
+                        input.close();
+                        layout.setVisibility(View.GONE);
+
+                        fileUri = FileProvider.getUriForFile(context, "com.example.android.myexoplayer2.fileprovider", myFile);
+
+                        Toast.makeText(context, "Downloaded" + fileUri, Toast.LENGTH_LONG).show();
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.setType("images/*");
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        context.startActivity(Intent.createChooser(shareIntent, "Share Photo"));
+
+                    }
 
 
                 }catch(IOException e){
@@ -97,6 +134,8 @@ public class downloadResponse implements Response.Listener<byte[]>, Response.Err
         }
 
     }
+
+
 
     @Override
     public void onErrorResponse(VolleyError error) {

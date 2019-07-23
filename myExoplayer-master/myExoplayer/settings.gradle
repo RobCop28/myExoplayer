@@ -1,1 +1,1 @@
-include ':app', ':myexoplayer2'
+include ':app', ':myexoplayer2', ':splashscreen'
