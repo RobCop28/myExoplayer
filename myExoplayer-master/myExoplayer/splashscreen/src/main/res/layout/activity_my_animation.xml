@@ -45,7 +45,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline1"
-
+            android:visibility="gone"
             android:id="@+id/text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
